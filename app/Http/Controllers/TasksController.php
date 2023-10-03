@@ -7,6 +7,7 @@ use App\Models\Statistics;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class TasksController extends Controller
 {
@@ -19,7 +20,7 @@ class TasksController extends Controller
 
         $tasks = TasksResource::collection($data);
         // dd($tasks);
-        return view('tasks.index',['tasks' =>$tasks]);
+        return view('tasks.index', ['tasks' => $tasks]);
     }
 
     /**
@@ -27,9 +28,15 @@ class TasksController extends Controller
      */
     public function create()
     {
-        $users = User::where('role_id',2)->get();
-        $admins = User::where('role_id',1)->get();
-        return view('tasks.create',['users' =>$users,'admins'=>$admins]);
+        // Check if the user list is already cached
+        if (Cache::has('user_list')) {
+            $users = Cache::get('user_list');
+        } else {
+            $users = User::where('role_id', 2)->get();
+            Cache::put('user_list', $users, now()->addHours(1));
+        }
+        $admins = User::where('role_id', 1)->get();
+        return view('tasks.create', ['users' => $users, 'admins' => $admins]);
     }
 
     /**
@@ -51,7 +58,7 @@ class TasksController extends Controller
             $statistics->num_of_tasks = 1;
             $statistics->save();
         } else {
-           $statistics->increment('num_of_tasks');
+            $statistics->increment('num_of_tasks');
         }
 
         return redirect()->route('index')->with('success', 'Task successfully stored.');
