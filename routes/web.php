@@ -20,10 +20,10 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::group(['middleware' => ['auth']], function() {
 
-    // Route::get('/', [\App\Http\Controllers\TasksController::class, 'index']);
+Route::group(['middleware' => ['auth']], function () {
+
+
     Route::resource('/', \App\Http\Controllers\TasksController::class);
     Route::get('/statistics', [\App\Http\Controllers\StatisticsController::class, 'index'])->name('statistics');
 });

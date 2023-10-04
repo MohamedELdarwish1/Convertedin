@@ -11,6 +11,6 @@ class StatisticsController extends Controller
     {
         $statistics = Statistics::orderByDesc('num_of_tasks')->get()->take(10);
         // dd($statistics);
-       return view('statistics',['statistics' =>$statistics]);
+        return view('statistics', ['statistics' => $statistics]);
     }
 }
