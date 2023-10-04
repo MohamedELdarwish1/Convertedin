@@ -13,7 +13,7 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg " style="background-color: #a3aeba">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Converted.In</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,7 +35,7 @@
       </div>
     </div>
   </nav>
-<body>
+<body style="background-color: #f0f0f0">
 
     <div class="row justify-content-center mt-5">
         <div class="col-6">

@@ -27,11 +27,17 @@
         <div class="form-group">
             <label>Title</label>
             <input type="text" name="title" class="form-control" placeholder="Title">
+            @error('title')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
 
         <div class="form-group">
             <label>Description</label>
             <textarea name="description" rows="5" placeholder="task description" class="form-control"></textarea>
+            @error('description')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
         <div class="form-group">
             <label>Assigned User </label>

@@ -45,14 +45,13 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
-
-        $task = Task::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'assigned_to_id' => $request->assigned_to_id,
-            'assigned_by_id' => $request->assigned_by_id,
-
+        $request->validate([
+            'title' => 'required|max:255',
+            'description' => 'required',
         ]);
+
+        $task =  Task::create($request->all());
+
         //we can do it like that
 
         /*   $statistics = Statistics::firstOrNew(['user_id' => $task->assigned_to_id]);
