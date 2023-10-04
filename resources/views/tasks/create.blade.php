@@ -2,10 +2,10 @@
 
 @section('content')
 
-    <div class="d-flex justify-content-between mb-4">
+    {{-- <div class="d-flex justify-content-between mb-4">
         <h3>Create task</h3>
         <a class="btn btn-success btn-sm" href="{{ route('index') }}">List tasks</a>
-    </div>
+    </div> --}}
 
     @if(session()->has('success'))
         <label class="alert alert-success w-100">{{session('success')}}</label>

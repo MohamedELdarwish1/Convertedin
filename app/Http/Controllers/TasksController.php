@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Statistics as EventsStatistics;
 use App\Http\Resources\TasksResource;
 use App\Models\Statistics;
 use App\Models\Task;
@@ -52,14 +53,20 @@ class TasksController extends Controller
             'assigned_by_id' => $request->assigned_by_id,
 
         ]);
-        $statistics = Statistics::firstOrNew(['user_id' => $task->assigned_to_id]);
+        //we can do it like that
+
+        /*   $statistics = Statistics::firstOrNew(['user_id' => $task->assigned_to_id]);
         if (!$statistics->exists) {
             $statistics->user_id =  $task->assigned_to_id;
             $statistics->num_of_tasks = 1;
             $statistics->save();
         } else {
             $statistics->increment('num_of_tasks');
-        }
+        }  */
+
+        // or we can use event and listener
+
+        event(new EventsStatistics($task->assigned_to_id));
 
         return redirect()->route('index')->with('success', 'Task successfully stored.');
     }
